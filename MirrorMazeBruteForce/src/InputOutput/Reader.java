@@ -37,7 +37,7 @@ public class Reader {
     }
 
     private static char[][] readMaze(BufferedReader reader, int width, int height) throws IOException {
-        char[][] maze = new char[width][height];
+        char[][] maze = new char[height][width];
         String line = reader.readLine();
         for (int i = 0; i < height && line != null; i++) {
             maze[i] = line.toCharArray();
