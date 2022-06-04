@@ -26,7 +26,7 @@ public class Reader {
 
                 if (ints.get(0) == -1 || ints.get(1) == -1)
                     break;
-                
+
                 mazes.add(readMaze(reader, ints.get(0), ints.get(1)));
             }
             reader.close();
@@ -39,9 +39,8 @@ public class Reader {
     private static char[][] readMaze(BufferedReader reader, int width, int height) throws IOException {
         char[][] maze = new char[width][height];
         String line = reader.readLine();
-        int lineIndex = 0;
-        while (line != null) {
-            maze[lineIndex++] = line.toCharArray();
+        for (int i = 0; i < height && line != null; i++) {
+            maze[i] = line.toCharArray();
             line = reader.readLine();
         }
         return maze;
