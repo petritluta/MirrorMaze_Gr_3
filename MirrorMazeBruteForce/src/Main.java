@@ -5,11 +5,13 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        char[][] mazeArray = Reader.read("maze.txt").get(0);
+        for (char[][] mazeArray : Reader.read(args[0])) {
+            MirrorMaze maze = new MirrorMaze(mazeArray[0].length, mazeArray.length, mazeArray);
 
-        MirrorMaze maze = new MirrorMaze(mazeArray[0].length, mazeArray.length, mazeArray);
-        
-        System.out.println(maze);
-        System.out.println(MirrorMaze.toString(maze.getSolution()));
+            System.out.println(maze);
+            //TODO: print this to a file
+            System.out.println(MirrorMaze.toString(maze.getSolution()));
+
+        }
     }
 }
