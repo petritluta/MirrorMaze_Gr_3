@@ -151,6 +151,9 @@ public class MirrorMaze implements Serializable {
 
 
     public static String toString(char[][] maze) {
+        if (maze == null) {
+            return "No solution!";
+        }
         StringBuilder mazeString = new StringBuilder();
         for (char[] chars : maze) {
             for (char aChar : chars) {
@@ -163,6 +166,9 @@ public class MirrorMaze implements Serializable {
 
     @Override
     public String toString() {
+        if (maze == null) {
+            return "No solution!";
+        }
         StringBuilder mazeString = new StringBuilder();
         for (char[] chars : maze) {
             for (char aChar : chars) {
