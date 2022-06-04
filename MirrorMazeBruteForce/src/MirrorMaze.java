@@ -1,4 +1,7 @@
+import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MirrorMaze implements Serializable {
     private final int width;
@@ -18,18 +21,44 @@ public class MirrorMaze implements Serializable {
 
         getStartingPosition();
     }
+
+    private String[] getCombinations(int length) {
+        List<String> combinations = new ArrayList<>();
+        for (int i=0; i < Math.pow(2, length); i++) {
+            combinations.add(padLeftZeros(Integer.toBinaryString(i),length));
+        }
+
+        return combinations.toArray(new String[0]);
+    }
+
+    public String padLeftZeros(String inputString, int length) {
+        if (inputString.length() >= length) {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < length - inputString.length()) {
+            sb.append('0');
+        }
+        sb.append(inputString);
+
+        return sb.toString();
+    }
+
     public char[][] getSolution() {
-        for (int Y = startingPositionY; Y < height; Y++) {
-            char[][] randomMaze = maze;
-            for (int X = startingPositionX; X < width; X++) {
-                if (randomMaze[Y][X] == '/') {
+        char[][] randomMaze = maze.clone();
+        Point[] mirrors = getMirrorPositions(maze);
+        String[] combinations = getCombinations(mirrors.length);
 
-                } else if (randomMaze[Y][X] == '\\') {
+        for(int i = 0; i < combinations.length; i++) {
+            for(int mirrorIndex = 0; mirrorIndex < mirrors.length; mirrorIndex++) {
+                randomMaze[mirrors[mirrorIndex].y][mirrors[mirrorIndex].x] = combinations[i].charAt(mirrorIndex) == '0' ? '/' : '\\';
+            }
 
-                }
-                checkSolution(randomMaze, direction);
+            if(checkSolution(randomMaze, direction)) {
+                return randomMaze;
             }
         }
+
         return null;
     }
 
@@ -105,6 +134,18 @@ public class MirrorMaze implements Serializable {
 
     }
 
+    private Point[] getMirrorPositions(char[][] maze) {
+        List<Point> points = new ArrayList<>();
+        for (int i = 0; i < maze.length; i++) {
+            for (int j = 0; j < maze[i].length; j++) {
+                if (maze[i][j] == '/' || maze[i][j] == '\\') {
+                    points.add(new Point(j, i));
+                }
+            }
+        }
+
+        return points.toArray(new Point[0]);
+    }
 
     //toString Functions
 
