@@ -32,7 +32,7 @@ public class MirrorMaze implements Serializable {
     }
 
     public char[][] getSolution() {
-
+        for(int Y = startingPositionX)
         return null;
     }
 
@@ -42,7 +42,7 @@ public class MirrorMaze implements Serializable {
         int Y = startingPositionY;
         System.out.println(direction + " - " + X + "  " + Y);
 
-        while (maze[X][Y] != '*') {
+        while (maze[Y][X] != '*') {
 
             switch (direction) {
                 case UP -> Y--;
@@ -50,14 +50,14 @@ public class MirrorMaze implements Serializable {
                 case RIGHT -> X++;
                 case LEFT -> X--;
             }
-            if (maze[X][Y] == '/') {
+            if (maze[Y][X] == '/') {
                 switch (direction) {
                     case UP -> direction = Direction.RIGHT;
                     case DOWN -> direction = Direction.LEFT;
                     case LEFT -> direction = Direction.DOWN;
                     case RIGHT -> direction = Direction.UP;
                 }
-            } else if (maze[X][Y] == '\\') {
+            } else if (maze[Y][X] == '\\') {
                 switch (direction) {
                     case UP -> direction = Direction.LEFT;
                     case DOWN -> direction = Direction.RIGHT;
