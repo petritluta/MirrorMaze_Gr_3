@@ -18,32 +18,26 @@ public class MirrorMaze implements Serializable {
 
         getStartingPosition();
     }
-
-    @Override
-    public String toString() {
-        StringBuilder mazeString = new StringBuilder();
-        for (char[] chars : maze) {
-            for (char aChar : chars) {
-                mazeString.append(aChar);
-            }
-            mazeString.append('\n');
-        }
-        return mazeString.toString();
-    }
-
     public char[][] getSolution() {
-        for(int Y = startingPositionX)
+        for (int Y = startingPositionY; Y < height; Y++) {
+            char[][] randomMaze = maze;
+            for (int X = startingPositionX; X < width; X++) {
+                if (randomMaze[Y][X] == '/') {
+
+                } else if (randomMaze[Y][X] == '\\') {
+
+                }
+                checkSolution(randomMaze, direction);
+            }
+        }
         return null;
     }
 
-    //char[][] maze, Direction direction
-    public boolean checkSolution() {
+    private boolean checkSolution(char[][] maze, Direction direction) {
         int X = startingPositionX;
         int Y = startingPositionY;
-        System.out.println(direction + " - " + X + "  " + Y);
 
         while (maze[Y][X] != '*') {
-
             switch (direction) {
                 case UP -> Y--;
                 case DOWN -> Y++;
@@ -65,8 +59,7 @@ public class MirrorMaze implements Serializable {
                     case RIGHT -> direction = Direction.DOWN;
                 }
             }
-            System.out.println(direction + " - " + X + "  " + Y);
-            if (X == 0 || X == width - 1 || Y == 0 || Y == height - 1) {
+            if ((X == 0 || X == width - 1 || Y == 0 || Y == height - 1) && maze[Y][X] == '.') {
                 return true;
             }
         }
@@ -110,6 +103,33 @@ public class MirrorMaze implements Serializable {
             }
         }
 
+    }
+
+
+    //toString Functions
+
+
+    public static String toString(char[][] maze) {
+        StringBuilder mazeString = new StringBuilder();
+        for (char[] chars : maze) {
+            for (char aChar : chars) {
+                mazeString.append(aChar);
+            }
+            mazeString.append('\n');
+        }
+        return mazeString.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder mazeString = new StringBuilder();
+        for (char[] chars : maze) {
+            for (char aChar : chars) {
+                mazeString.append(aChar);
+            }
+            mazeString.append('\n');
+        }
+        return mazeString.toString();
     }
 
 }

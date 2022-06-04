@@ -4,15 +4,12 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
-        char[][] mazeArray = null;
-        try {
-            mazeArray = Reader.read("maze.txt").get(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws IOException {
+        char[][] mazeArray = Reader.read("maze.txt").get(0);
+
         MirrorMaze maze = new MirrorMaze(mazeArray[0].length, mazeArray.length, mazeArray);
-        System.out.println(maze.toString());
-        System.out.println(maze.checkSolution());
+        
+        System.out.println(maze);
+        System.out.println(MirrorMaze.toString(maze.getSolution()));
     }
 }
