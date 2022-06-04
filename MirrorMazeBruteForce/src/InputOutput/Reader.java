@@ -17,6 +17,8 @@ public class Reader {
             reader = new BufferedReader(new FileReader(path));
             while (true) {
                 String line = reader.readLine();
+                if (line == null)
+                    break;
 
                 List<Integer> ints = Arrays.stream(line.split(" "))
                         .map(Integer::parseInt)
@@ -24,6 +26,7 @@ public class Reader {
 
                 if (ints.get(0) == -1 || ints.get(1) == -1)
                     break;
+                
                 mazes.add(readMaze(reader, ints.get(0), ints.get(1)));
             }
             reader.close();
