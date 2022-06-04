@@ -32,7 +32,7 @@ public class MirrorMaze implements Serializable {
     }
 
     public char[][] getSolution() {
-
+        for(int Y = startingPositionX)
         return null;
     }
 
@@ -42,7 +42,7 @@ public class MirrorMaze implements Serializable {
         int Y = startingPositionY;
         System.out.println(direction + " - " + X + "  " + Y);
 
-        while (maze[X][Y] != '*') {
+        while (maze[Y][X] != '*') {
 
             switch (direction) {
                 case UP -> Y--;
@@ -50,14 +50,14 @@ public class MirrorMaze implements Serializable {
                 case RIGHT -> X++;
                 case LEFT -> X--;
             }
-            if (maze[X][Y] == '/') {
+            if (maze[Y][X] == '/') {
                 switch (direction) {
                     case UP -> direction = Direction.RIGHT;
                     case DOWN -> direction = Direction.LEFT;
                     case LEFT -> direction = Direction.DOWN;
                     case RIGHT -> direction = Direction.UP;
                 }
-            } else if (maze[X][Y] == '\\') {
+            } else if (maze[Y][X] == '\\') {
                 switch (direction) {
                     case UP -> direction = Direction.LEFT;
                     case DOWN -> direction = Direction.RIGHT;
@@ -78,7 +78,7 @@ public class MirrorMaze implements Serializable {
 
         for (startingPositionY = 1; startingPositionY < height - 1; startingPositionY++) {
             if (maze[startingPositionY][startingPositionX] == '.') {
-                direction = Direction.DOWN;
+                direction = Direction.RIGHT;
                 return;
             }
         }
@@ -86,8 +86,8 @@ public class MirrorMaze implements Serializable {
         startingPositionX = width - 1;
 
         for (startingPositionY = 1; startingPositionY < height - 1; startingPositionY++) {
-            if (maze[startingPositionX][startingPositionY] == '.') {
-                direction = Direction.UP;
+            if (maze[startingPositionY][startingPositionX] == '.') {
+                direction = Direction.LEFT;
                 return;
             }
         }
@@ -95,8 +95,8 @@ public class MirrorMaze implements Serializable {
         startingPositionY = 0;
 
         for (startingPositionX = 1; startingPositionX < width - 1; startingPositionX++) {
-            if (maze[startingPositionX][startingPositionY] == '.') {
-                direction = Direction.RIGHT;
+            if (maze[startingPositionY][startingPositionX] == '.') {
+                direction = Direction.DOWN;
                 return;
             }
         }
@@ -104,8 +104,8 @@ public class MirrorMaze implements Serializable {
         startingPositionY = height - 1;
 
         for (startingPositionX = 1; startingPositionX < width - 1; startingPositionX++) {
-            if (maze[startingPositionX][startingPositionY] == '.') {
-                direction = Direction.LEFT;
+            if (maze[startingPositionY][startingPositionX] == '.') {
+                direction = Direction.UP;
                 return;
             }
         }
