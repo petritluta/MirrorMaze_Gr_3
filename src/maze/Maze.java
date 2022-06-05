@@ -53,6 +53,39 @@ public class Maze {
     }
   }
 
+  private void addInput(char symbol,int i,int j)
+  {
+    grid[i][j]=symbol;
+    if(symbol == '/' || symbol=='\\')
+    {
+      this.mirror_sum++;
+      mirror_num[i][j]=mirror_sum;
+      mirrors[mirror_sum]=new Mirror();
+      mirrors[mirror_sum].setX(i);
+      mirrors[mirror_sum].setY(j);
+      state[mirror_sum]=(grid[i][j]=='\\');
+    }
+    else if ((i == N || j == M || i== 1 || j == 1) && symbol == '.')
+    {
+      mirror_num[i][j]=-1;
+    }
+  }
+
+
+  
+
+
+    if (first_direction !=-1 && first_mirror!=-1)
+    {
+      boolean flag= depthFirstSearch(first_mirror,first_direction);
+      assert flag;
+    }
+
+    printMaze();
+
+  }
+
+
 
   public void printMaze() {
     for (int i = 1; i <= N; i++) {
