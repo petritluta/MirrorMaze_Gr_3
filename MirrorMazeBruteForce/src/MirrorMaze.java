@@ -87,8 +87,7 @@ public class MirrorMaze implements Serializable {
                     case LEFT -> direction = Direction.UP;
                     case RIGHT -> direction = Direction.DOWN;
                 }
-            }
-            if ((X == 0 || X == width - 1 || Y == 0 || Y == height - 1) && maze[Y][X] == '.') {
+            } else if ((X == 0 || X == width - 1 || Y == 0 || Y == height - 1) && maze[Y][X] == '.') {
                 return true;
             }
         }

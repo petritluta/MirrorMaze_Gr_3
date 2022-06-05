@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        for (char[][] mazeArray : Reader.read(args[0])) {
+        for (char[][] mazeArray : Reader.read("maze.txt")) {
             MirrorMaze maze = new MirrorMaze(mazeArray[0].length, mazeArray.length, mazeArray);
 
             System.out.println(maze);
