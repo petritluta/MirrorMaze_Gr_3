@@ -72,8 +72,43 @@ public class Maze {
   }
 
 
-  
+  public void solve()
+  {
+    final int[] dx={-1,0,1,0};
+    final int[] dy={0,-1,0,1};
+    int  first_mirror=-1,first_direction=-1;
 
+    for (int i = 1,x,y; i <=mirror_sum ; i++) {
+      for (int j = 0; j <=3 ; j++) {
+        if (mirrors[i].getNeighbor(j) != 0) continue;
+
+
+        x=mirrors[i].getX();
+        y=mirrors[i].getY();
+
+
+        while (true)
+        {
+          x=x+dx[j];
+          y=y+dy[j];
+          assert(x >= 1 && x <= N && y >= 1 && y <= M);
+          if(grid[x][y]=='*')break;
+          if(mirror_num[x][y] == -1)
+          {
+            mirrors[i].addNeighbor(j, -1);
+            first_mirror=i;
+            first_direction=j;
+            break;
+          }
+          if(mirror_num[x][y] > 0)
+          {
+            mirrors[i].addNeighbor(j,mirror_num[x][y]);
+            mirrors[mirror_num[x][y]].addNeighbor((j+2)%4,i);
+            break;
+          }
+        }
+      }
+    }
 
     if (first_direction !=-1 && first_mirror!=-1)
     {
@@ -84,8 +119,6 @@ public class Maze {
     printMaze();
 
   }
-
-
 
   public void printMaze() {
     for (int i = 1; i <= N; i++) {
