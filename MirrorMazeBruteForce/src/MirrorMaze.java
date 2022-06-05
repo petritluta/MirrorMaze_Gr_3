@@ -7,7 +7,7 @@ public class MirrorMaze implements Serializable {
     private final int width;
     private final int height;
 
-    private final char[][] maze;
+    private char[][] maze;
 
     private int startingPositionX;
     private int startingPositionY;
@@ -19,13 +19,12 @@ public class MirrorMaze implements Serializable {
         this.height = height;
         this.maze = maze;
 
-        getStartingPosition();
     }
 
     private String[] getCombinations(int length) {
         List<String> combinations = new ArrayList<>();
         for (int i=0; i < Math.pow(2, length); i++) {
-            combinations.add(padLeftZeros(Integer.toBinaryString(i),length));
+            combinations.add(padLeftZeros(Integer.toBinaryString(i),length)); // hapsinori: 2^(numri i pasqyrave)
         }
 
         return combinations.toArray(new String[0]);
@@ -45,47 +44,50 @@ public class MirrorMaze implements Serializable {
     }
 
     public char[][] getSolution() {
-        char[][] randomMaze = maze.clone();
-        Point[] mirrors = getMirrorPositions(maze);
-        String[] combinations = getCombinations(mirrors.length);
+        getStartingPosition();          //2*height + 2*width - 8 = 2(heiQght+width) - 8 : O(1)
+        Point[] mirrors = getMirrorPositions(maze); // height*width + builtIn funksioni toArray : Gjith njejet
+        String[] combinations = getCombinations(mirrors.length);    //2^(numri i pasqyrave)*(numri i pasqyrave) : gjith njejt
 
-        for(int i = 0; i < combinations.length; i++) {
+
+        //Best case: 2^(numri i pasqyrave)*((numri i pasqyrave) + konstant)
+        for(int i = 0; i < combinations.length; i++) {          //Worst case: 2^(numri i pasqyrave)*((numri i pasqyrave) + (height-2)*(width-2) + 2)
             for(int mirrorIndex = 0; mirrorIndex < mirrors.length; mirrorIndex++) {
-                randomMaze[mirrors[mirrorIndex].y][mirrors[mirrorIndex].x] = combinations[i].charAt(mirrorIndex) == '0' ? '/' : '\\';
+                maze[mirrors[mirrorIndex].y][mirrors[mirrorIndex].x] = combinations[i].charAt(mirrorIndex) == '0' ? '/' : '\\';
             }
 
-            if(checkSolution(randomMaze, direction)) {
-                return randomMaze;
+            if(checkSolution(maze, direction)) {
+                return maze;
             }
         }
 
         return null;
     }
 
-    private boolean checkSolution(char[][] maze, Direction direction) {
+    private boolean checkSolution(char[][] maze, Direction direction) {                 //Best case eshte O(1)
+                                                                                        //Worst case eshte
         int X = startingPositionX;
         int Y = startingPositionY;
 
         while (maze[Y][X] != '*') {
             switch (direction) {
-                case UP -> Y--;
-                case DOWN -> Y++;
-                case RIGHT -> X++;
-                case LEFT -> X--;
+                case UP : Y--; break;
+                case DOWN : Y++; break;
+                case RIGHT : X++; break;
+                case LEFT : X--; break;
             }
             if (maze[Y][X] == '/') {
                 switch (direction) {
-                    case UP -> direction = Direction.RIGHT;
-                    case DOWN -> direction = Direction.LEFT;
-                    case LEFT -> direction = Direction.DOWN;
-                    case RIGHT -> direction = Direction.UP;
+                    case UP : direction = Direction.RIGHT; break;
+                    case DOWN : direction = Direction.LEFT; break;
+                    case LEFT : direction = Direction.DOWN; break;
+                    case RIGHT : direction = Direction.UP; break;
                 }
             } else if (maze[Y][X] == '\\') {
                 switch (direction) {
-                    case UP -> direction = Direction.LEFT;
-                    case DOWN -> direction = Direction.RIGHT;
-                    case LEFT -> direction = Direction.UP;
-                    case RIGHT -> direction = Direction.DOWN;
+                    case UP : direction = Direction.LEFT; break;
+                    case DOWN : direction = Direction.RIGHT; break;
+                    case LEFT : direction = Direction.UP; break;
+                    case RIGHT : direction = Direction.DOWN; break;
                 }
             } else if ((X == 0 || X == width - 1 || Y == 0 || Y == height - 1) && maze[Y][X] == '.') {
                 return true;
@@ -138,7 +140,7 @@ public class MirrorMaze implements Serializable {
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze[i].length; j++) {
                 if (maze[i][j] == '/' || maze[i][j] == '\\') {
-                    points.add(new Point(j, i));
+                    points.add(new Point(j, i));                //pointa sa ka pasqyra, hapsinori O(nr pasqyrave)
                 }
             }
         }
