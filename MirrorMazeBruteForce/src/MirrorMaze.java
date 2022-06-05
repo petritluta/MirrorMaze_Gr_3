@@ -44,7 +44,7 @@ public class MirrorMaze implements Serializable {
     }
 
     public char[][] getSolution() {
-        getStartingPosition();          //2*height + 2*width - 8 = 2(heiQght+width) - 8 : O(1)
+        getStartingPosition();          //2*height + 2*width - 8 = 2(height + width) - 8 : O(1)
         Point[] mirrors = getMirrorPositions(maze); // height*width + builtIn funksioni toArray : Gjith njejet
         String[] combinations = getCombinations(mirrors.length);    //2^(numri i pasqyrave)*(numri i pasqyrave) : gjith njejt
 
