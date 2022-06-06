@@ -120,6 +120,38 @@ public class Maze {
 
   }
 
+
+
+
+  public int[] getNext(int i,int j)
+  {
+
+    int[] d=new int[4];
+
+    if(!state[i])
+    {
+      d[0]=1;
+      d[1]=0;
+      d[2]=3;
+      d[3]=2;
+    }
+    else{
+      d[0]=3;
+      d[1]=2;
+      d[2]=1;
+      d[3]=0;
+    }
+
+    int[] next=new int[2];
+
+    next[1]=(d[j]+2)%4;
+    next[0]=mirrors[i].getNeighbor(d[j]);
+
+
+    return  next;
+  }
+
+
   public void printMaze() {
     for (int i = 1; i <= N; i++) {
       for (int j = 1; j <= M; j++)
@@ -128,5 +160,19 @@ public class Maze {
       System.out.println();
     }
   }
+  public void setM(int m) throws  RuntimeException {
+    if(m <=MAX_COLS)
+      this.M = m;
+    else
+      throw new RuntimeException("Invalid input");
+  }
+
+  public void setN(int n) {
+    if(n <= MAX_ROWS)
+      this.N=n;
+    else
+      throw new RuntimeException("Invalid input");
+  }
+
 }
 
