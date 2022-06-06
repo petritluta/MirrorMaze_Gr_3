@@ -21,4 +21,21 @@ public class Graph {
         this.vertices.values().forEach(e->e.remove(vertex));
         this.vertices.remove(vertex);
     }
+    public void addEdge(String label1,String label2)
+    {
+        Vertex vertex1=new Vertex(label1);
+        Vertex vertex2=new Vertex(label2);
+
+        this.vertices.get(vertex1).add(vertex2);
+        this.vertices.get(vertex2).add(vertex1);
+
+    }
+
+    public void removeEdge(String label1,String label2)
+    {
+        Vertex vertex1=new Vertex(label1);
+        Vertex vertex2=new Vertex(label2);
+
+
+    }
 }
