@@ -53,6 +53,44 @@ public class Maze {
     }
   }
 
+  private void  constructMaze(String filename) throws FileNotFoundException,RuntimeException
+  {
+
+    Scanner input=new Scanner(new File(filename));
+    this.mirror_sum=0;
+
+    if(input.hasNextLine())
+    {
+      String[] gridSize =input.nextLine().split(" ");
+      if (gridSize.length ==2)
+      {
+        setM(Integer.parseInt(gridSize[0]));
+        setN(Integer.parseInt(gridSize[1]));
+
+        for (int i = 1; i <= N; i++) {
+          String in;
+          if(input.hasNextLine())
+          {
+            in=input.nextLine();
+            if(in.equals("-1"))
+              break;
+          }
+          else
+            break;
+          for (int j = 1; j <=M; j++) {
+            addInput(in.charAt(j-1),i,j);
+          }
+        }
+      }
+      else
+        throw new RuntimeException("Invalid input");
+
+    }
+    else{
+      throw new RuntimeException("Invalid input");
+    }
+  }
+
   private void addInput(char symbol,int i,int j)
   {
     grid[i][j]=symbol;
