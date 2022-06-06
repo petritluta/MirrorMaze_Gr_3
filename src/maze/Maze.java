@@ -121,6 +121,33 @@ public class Maze {
   }
 
 
+  private boolean depthFirstSearch(int i,int j)
+  {
+    if (i==-1) return true;
+
+    boolean usedI=used[i],flag=false;
+    used[i]=true;
+    int [] next= getNext(i,j);
+
+    if(next[0] != 0)
+      flag=depthFirstSearch(next[0],next[1]);
+    if (flag)
+      return true;
+
+    if(!usedI)
+    {
+      state[i]=!state[i];
+      next=getNext(i,j);
+      flag=depthFirstSearch(next[0],next[1]);
+      if (flag) return true;
+
+      state[i]=!state[i];
+    }
+
+    used[i]=usedI;
+    return false;
+  }
+
 
 
   public int[] getNext(int i,int j)
