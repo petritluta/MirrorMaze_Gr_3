@@ -5,38 +5,43 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Maze {
-  private final int MAX_ROWS = 50;
-  private final int MAX_COLS = 50;
+  private final int MAX_ROWS=50;
+  private final int MAX_COLS=50;
 
   private int M;
   private int N;
   private int mirror_sum;
-  private final char[][] grid = new char[MAX_ROWS][MAX_COLS];
-  private final Mirror[] mirrors = new Mirror[MAX_ROWS * MAX_COLS];
-  private final int[][] mirror_num = new int[MAX_ROWS][MAX_COLS];
-  private final boolean[] state = new boolean[MAX_COLS * MAX_ROWS];
-  private final boolean[] used = new boolean[MAX_COLS * MAX_ROWS];
+  private final char[][] grid= new char[MAX_ROWS][MAX_COLS];
+  private final Mirror[] mirrors=new Mirror[MAX_ROWS*MAX_COLS];
+  private  final int[][] mirror_num=new int[MAX_ROWS][MAX_COLS];
+  private final boolean[] state=new boolean[MAX_COLS*MAX_ROWS];
+  private final boolean[] used=new boolean[MAX_COLS*MAX_ROWS];
 
-  public Maze() {
-    try {
+  public Maze()
+  {
+    try{
       this.constructMaze();
-    } catch (Exception e) {
+    }
+    catch (Exception e)
+    {
       e.printStackTrace();
     }
 
   }
 
   public Maze(String filename) {
-    try {
+    try{
       this.constructMaze(filename);
-    } catch (Exception e) {
+    }
+    catch (Exception e)
+    {
       e.printStackTrace();
     }
   }
 
 
-  private void constructMaze() throws RuntimeException {
-    Scanner input = new Scanner(System.in);
+  private void constructMaze() throws RuntimeException{
+    Scanner input=new Scanner(System.in);
 
     System.out.print("Number of columns:");
     this.setM(input.nextInt());
@@ -47,7 +52,7 @@ public class Maze {
 
     for (int i = 1; i <= N; i++) {
       for (int j = 1; j <= M; j++) {
-        grid[i][j] = input.next().charAt(0);
+        grid[i][j]=input.next().charAt(0);
         addInput(grid[i][j], i, j);
       }
     }
@@ -148,6 +153,7 @@ public class Maze {
       }
     }
 
+
     if (first_direction !=-1 && first_mirror!=-1)
     {
       boolean flag= depthFirstSearch(first_mirror,first_direction);
@@ -156,6 +162,34 @@ public class Maze {
 
     printMaze();
 
+  }
+
+  public int[] getNext(int i,int j)
+  {
+
+    int[] d=new int[4];
+
+    if(!state[i])
+    {
+      d[0]=1;
+      d[1]=0;
+      d[2]=3;
+      d[3]=2;
+    }
+    else{
+      d[0]=3;
+      d[1]=2;
+      d[2]=1;
+      d[3]=0;
+    }
+
+    int[] next=new int[2];
+
+    next[1]=(d[j]+2)%4;
+    next[0]=mirrors[i].getNeighbor(d[j]);
+
+
+    return  next;
   }
 
 
@@ -187,44 +221,17 @@ public class Maze {
   }
 
 
-
-  public int[] getNext(int i,int j)
+  public void printMaze()
   {
-
-    int[] d=new int[4];
-
-    if(!state[i])
+    for (int i = 1; i <= N; i++)
     {
-      d[0]=1;
-      d[1]=0;
-      d[2]=3;
-      d[3]=2;
-    }
-    else{
-      d[0]=3;
-      d[1]=2;
-      d[2]=1;
-      d[3]=0;
-    }
-
-    int[] next=new int[2];
-
-    next[1]=(d[j]+2)%4;
-    next[0]=mirrors[i].getNeighbor(d[j]);
-
-
-    return  next;
-  }
-
-
-  public void printMaze() {
-    for (int i = 1; i <= N; i++) {
       for (int j = 1; j <= M; j++)
         if (mirror_num[i][j] == 0 || mirror_num[i][j] == -1) System.out.print(grid[i][j]);
         else System.out.print(state[mirror_num[i][j]] ? '\\' : '/');
       System.out.println();
     }
   }
+
   public void setM(int m) throws  RuntimeException {
     if(m <=MAX_COLS)
       this.M = m;
@@ -238,6 +245,4 @@ public class Maze {
     else
       throw new RuntimeException("Invalid input");
   }
-
 }
-
