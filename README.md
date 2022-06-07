@@ -1,8 +1,7 @@
 Analysis of the MirrorMazeBruteForce Algorithm
+# **Time complexity**
 
-# Time complexity
-
-## Best cases:
+## **Best cases:**
 First, we analyze the time complexity of each of the methods that getSolution() invokes, after that we add those time complexities in order to get the time complexity of the getSolution() method.
 
 getStartingPosition():
@@ -17,7 +16,7 @@ getCombinations(mirrors.length) - Ω (2mirrorNumber\*mirrorNumber), where mirror
 
 Ω ( 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)))
 
-getSolution()(lines 52 up to 64)- Ω (2mirrorNumber \*(mirrorNumber)), where mirrorNumber =  m\*n-2\*(m+n) in the worst scenario, as discussed previously, so: 
+getSolution()(lines 52 up to 64)- Ω (2mirrorNumber \*(mirrorNumber)), where mirrorNumber =  m\*n-2\*(m+n) in the worst scenario, as discussed previously, so:
 
 Ω ( 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)))
 
@@ -28,14 +27,16 @@ C + m\*n + 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)) + 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n))
 C – constant which represents the constant time complexity Ω(1) of the getStartingPosition() method
 
 
-## Worst cases:
+
+
+## **Worst cases:**
 The same logic is used when describing worst case time complexity. First, we describe time complexity of each method that getSolution() invokes, then we add time complexities of these methods in order to get the time complexity of the getSolution() method.
 
 getStartingPosition():
 
 Ω(2\*(m+n)-8)
 
-if height=width, and height=n, width=m, and we represent them as “n”, then we can generalize time complexity: 
+if height=width, and height=n, width=m, and we represent them as “n”, then we can generalize time complexity:
 
 Ω(4n-8)
 
@@ -59,7 +60,9 @@ Finally, we add these time complexities to get the time complexity of getSolutio
 
 Ω(m\*n)+ Ω(n2)+ Ω ( 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)))+ Ω ( 2m\*n-2\*(m+n)\*(m\*n-2\*(m+n)+(n-2)\*(m-2)+2))
 
-# Space complexity
+
+# **Space complexity**
+
 
 As in the case of the analysis of time complexity, we first analyze the space complexity of each of the methods that getSolution() invokes, after that we add those space complexities in order to get the space complexity of the getSolution() method. Interestingly, the mathematical function that expresses the space complexity of this algorithm is always the same(the same function applies to both the worst and the best case).
 
@@ -97,4 +100,57 @@ C1 – constant number which represents the constant space complexity of the get
 
 
 
+
+
+
+
+
+
+Analysis of the MirrorMaze With Backtracking Algorithm
+
+**Time complexity** 
+
+# **Worst case:**
+First, we describe the time complexity of each method that solve() invokes, then we add the time complexity of these methods in order to get the time complexity of the solve() method.
+
+constructMaze()
+
+` `O(N^2)
+
+constructMaze(filepath)
+
+` `O(N)
+
+
+addInput()
+
+` `O(1)
+
+
+getNext()
+
+` `O(1)
+
+
+
+
+
+printMaze()
+
+` `O(N^2)
+
+
+setM()
+
+O(1)
+
+setN()
+
+O(1)
+
+
+depthFirstSearch() => Undefined
+
+solve() => Undefined
+#
 
