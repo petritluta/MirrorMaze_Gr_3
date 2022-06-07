@@ -1,4 +1,4 @@
-Analysis of the MirrorMazeBruteForce Algorithm
+﻿Analysis of the MirrorMazeBruteForce Algorithm
 # **Time complexity**
 
 ## **Best cases:**
@@ -148,8 +148,12 @@ setN()
 O(1)
 
 
-depthFirstSearch() => Undefined
+depthFirstSearch()
+
+` `O(N^2)
 
 solve() => Undefined
+
+` `O(5N^2)
 #
 
