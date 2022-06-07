@@ -8,24 +8,23 @@ getStartingPosition():
 
 Ω(1)
 
-getMirrorPositions(maze) - Ω(width\*height), if width = m and height=n, then we can write:
+getMirrorPositions(maze) - Ω(width*height), if width = m and height=n, then we can write:
 
-Ω (m\*n)
+Ω (m*n)
 
-getCombinations(mirrors.length) - Ω (2mirrorNumber\*mirrorNumber), where mirrorNumber=width\*height-2\*(width+height) in the worst scenario, if width = m and height = n, then we can write the time complexity function for the best case of this method as:
+getCombinations(mirrors.length) - Ω (2mirrorNumber*mirrorNumber), where mirrorNumber=0 in the best case:
 
-Ω ( 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)))
+Ω ( 1)
 
-getSolution()(lines 52 up to 64)- Ω (2mirrorNumber \*(mirrorNumber)), where mirrorNumber =  m\*n-2\*(m+n) in the worst scenario, as discussed previously, so:
+getSolution()(lines 52 up to 64)- Ω (2mirrorNumber *(mirrorNumber)), where mirrorNumber =  0 in the best case, as discussed previously, so: 
 
-Ω ( 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)))
+Ω ( 1)
 
 Finally, we add these time complexities to get the time complexity of getSolution() method.
 
-C + m\*n + 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)) + 2m\*n-2\*(m+n) \* (m\*n-2\*(m+n)) = C + m\*n + 2m\*n-2\*(m+n)+1 \* (m\*n-2\*(m+n))
+C + m*n
 
 C – constant which represents the constant time complexity Ω(1) of the getStartingPosition() method
-
 
 
 
